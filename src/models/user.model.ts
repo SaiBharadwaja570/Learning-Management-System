@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
-import User from '../types/user.types'
+import UserTypes from '../types/user.types'
 
-const userSchema = new mongoose.Schema<User>({
+const userSchema = new mongoose.Schema<UserTypes>({
     username: {
         type: String,
         required: true,
@@ -9,11 +9,13 @@ const userSchema = new mongoose.Schema<User>({
     },
     email: {
         type: String,
+        lowercase: true,
         required: true,
         unique: true
     },
     password: {
         type: String,
+        select: false,
         required: true
     },
     role: {
@@ -24,3 +26,5 @@ const userSchema = new mongoose.Schema<User>({
 })
 
 const User = mongoose.model("User", userSchema)
+
+export default User;
