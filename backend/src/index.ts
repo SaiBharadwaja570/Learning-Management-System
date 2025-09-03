@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/config';
 import authRouter from './routes/auth.routes';
+import courseRouter from './routes/course.routes'
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.get('/health', (req, res) => {
 
 // auth routes
 app.use('/api/user', authRouter);
+app.use('/api/course', courseRouter)
 
 
 connectDB()
