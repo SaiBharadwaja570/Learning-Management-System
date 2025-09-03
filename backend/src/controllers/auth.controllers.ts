@@ -22,13 +22,11 @@ const loginUser = async (req: Request, res: Response) => {
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password as any);
     if (!isPasswordCorrect) {
-      // Same generic message for non-existent user or wrong password
       return res.status(401).send({ message: "Invalid credentials" });
     }
 
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) {
-      // console.error("JWT_SECRET is not defined in environment variables");
       return res.status(500).json({ 
         message: "Server configuration error" 
       });
@@ -38,7 +36,7 @@ const loginUser = async (req: Request, res: Response) => {
     const token = jwt.sign(
       { id: user._id, role: user.role },
       jwtSecret,
-      { expiresIn: '24h' } // Added expiration time
+      { expiresIn: '24h' } 
     );
 
     res.setHeader("Authorization", `Bearer ${token}`);
